@@ -22,8 +22,6 @@ To test the program:
 
 // --------
 // includes
-// --------
-
 #include <iostream> // cout, endl
 #include <iterator> // ostream_iterator
 #include <sstream>  // ostringstream
@@ -40,14 +38,10 @@ To test the program:
 
 // ---------
 // TestGraph
-// ---------
-
 template <typename T>
 struct TestGraph : CppUnit::TestFixture {
     // --------
     // typedefs
-    // --------
-
     typedef T                                       graph_type;
 
     typedef typename graph_type::vertex_descriptor  vertex_descriptor;
@@ -62,8 +56,6 @@ struct TestGraph : CppUnit::TestFixture {
 
     // -----
     // tests
-    // -----
-
     // directed, sparse, unweighted
     // possibly connected
     // possibly cyclic
@@ -92,8 +84,6 @@ struct TestGraph : CppUnit::TestFixture {
 
     // -----
     // setUp
-    // -----
-
     void setUp () {
         vdA  = add_vertex(g);
         vdB  = add_vertex(g);
@@ -117,8 +107,6 @@ struct TestGraph : CppUnit::TestFixture {
 
     // -------------
     // test_add_edge
-    // -------------
-
     void test_add_edge () {
         std::pair<edge_descriptor, bool> p = add_edge(vdA, vdB, g);
         CPPUNIT_ASSERT(p.first  == edAB);
@@ -126,8 +114,6 @@ struct TestGraph : CppUnit::TestFixture {
 
     // ----------------------
     // test_adjacent_vertices
-    // ----------------------
-
     void test_adjacent_vertices () {
         std::pair<adjacency_iterator, adjacency_iterator> p = adjacent_vertices(vdA, g);
         adjacency_iterator b = p.first;
@@ -143,8 +129,6 @@ struct TestGraph : CppUnit::TestFixture {
 
     // ---------
     // test_edge
-    // ---------
-
     void test_edge () {
         std::pair<edge_descriptor, bool> p = edge(vdA, vdB, g);
         CPPUNIT_ASSERT(p.first  == edAB);
@@ -152,8 +136,6 @@ struct TestGraph : CppUnit::TestFixture {
 
     // ----------
     // test_edges
-    // ----------
-
     void test_edges () {
         std::pair<edge_iterator, edge_iterator> p = edges(g);
         edge_iterator                           b = p.first;
@@ -169,48 +151,36 @@ struct TestGraph : CppUnit::TestFixture {
 
     // --------------
     // test_num_edges
-    // --------------
-
     void test_num_edges () {
         edges_size_type es = num_edges(g);
         CPPUNIT_ASSERT(es == 11);}
 
     // -----------------
     // test_num_vertices
-    // -----------------
-
     void test_num_vertices () {
         vertices_size_type vs = num_vertices(g);
         CPPUNIT_ASSERT(vs == 8);}
 
     // -----------
     // test_source
-    // -----------
-
     void test_source () {
         vertex_descriptor vd = source(edAB, g);
         CPPUNIT_ASSERT(vd == vdA);}
 
     // -----------
     // test_target
-    // -----------
-
     void test_target () {
         vertex_descriptor vd = target(edAB, g);
         CPPUNIT_ASSERT(vd == vdB);}
 
     // -----------
     // test_vertex
-    // -----------
-
     void test_vertex () {
         vertex_descriptor vd = vertex(0, g);
         CPPUNIT_ASSERT(vd == vdA);}
 
     // -------------
     // test_vertices
-    // -------------
-
     void test_vertices () {
         std::pair<vertex_iterator, vertex_iterator> p = vertices(g);
         vertex_iterator                             b = p.first;
@@ -226,15 +196,11 @@ struct TestGraph : CppUnit::TestFixture {
 
     // --------------
     // test_has_cycle
-    // --------------
-
     void test_has_cycle () {
         CPPUNIT_ASSERT(has_cycle(g));}
 
     // ---------------------
     // test_topological_sort
-    // ---------------------
-
     void test_topological_sort () {
         std::ostringstream out;
         topological_sort(g, std::ostream_iterator<vertex_descriptor>(out, " "));
@@ -242,8 +208,6 @@ struct TestGraph : CppUnit::TestFixture {
 
     // -----
     // suite
-    // -----
-
     CPPUNIT_TEST_SUITE(TestGraph);
     CPPUNIT_TEST(test_add_edge);
     CPPUNIT_TEST(test_adjacent_vertices);
@@ -260,8 +224,6 @@ struct TestGraph : CppUnit::TestFixture {
 
 // ----
 // main
-// ----
-
 int main () {
     using namespace std;
     using namespace boost;
@@ -271,7 +233,7 @@ int main () {
 
     CppUnit::TextTestRunner tr;
     tr.addTest(TestGraph< adjacency_list<setS, vecS, directedS> >::suite());
-//  tr.addTest(TestGraph<Graph>::suite()); // uncomment
+//  tr.addTest(TestGraph<Graph>::suite());
     tr.run();
 
     cout << "Done." << endl;
