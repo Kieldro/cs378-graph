@@ -22,17 +22,17 @@ To test the program:
 
 // --------
 // includes
-#include <iostream> // cout, endl
-#include <iterator> // ostream_iterator
-#include <sstream>  // ostringstream
-#include <utility>  // pair
+#include <iostream>	// cout, endl
+#include <iterator>	// ostream_iterator
+#include <sstream>	// ostringstream
+#include <utility>	// pair
 
-#include "boost/graph/adjacency_list.hpp" // adjacency_list
+#include "boost/graph/adjacency_list.hpp"		// adjacency_list
 
-#include "cppunit/extensions/HelperMacros.h" // CPPUNIT_TEST, CPPUNIT_TEST_SUITE, CPPUNIT_TEST_SUITE_END
-#include "cppunit/TestFixture.h"             // TestFixture
-#include "cppunit/TestSuite.h"               // TestSuite
-#include "cppunit/TextTestRunner.h"          // TestRunner
+#include "cppunit/extensions/HelperMacros.h"	// CPPUNIT_TEST, CPPUNIT_TEST_SUITE, CPPUNIT_TEST_SUITE_END
+#include "cppunit/TestFixture.h"				// TestFixture
+#include "cppunit/TestSuite.h"					// TestSuite
+#include "cppunit/TextTestRunner.h"				// TestRunner
 
 #include "Graph.h"
 
@@ -107,10 +107,18 @@ struct TestGraph : CppUnit::TestFixture {
 
 	// -------------
 	// test_add_edge
-	void test_add_edge () {
+	void test_add_edge0 () {
 		std::pair<edge_descriptor, bool> p = add_edge(vdA, vdB, g);
 		CPPUNIT_ASSERT(p.first  == edAB);
-		CPPUNIT_ASSERT(p.second == false);}
+		CPPUNIT_ASSERT(p.second == false);
+		CPPUNIT_ASSERT(num_edges(g) == 11);
+	}
+	
+	void test_add_edge1 () {
+		std::pair<edge_descriptor, bool> p = add_edge(vdH, vdG, g);
+		CPPUNIT_ASSERT(p.second == true);
+		CPPUNIT_ASSERT(num_edges(g) == 11 + 1);
+	}
 
 	// ----------------------
 	// test_adjacent_vertices
@@ -138,8 +146,8 @@ struct TestGraph : CppUnit::TestFixture {
 	// test_edges
 	void test_edges () {
 		std::pair<edge_iterator, edge_iterator> p = edges(g);
-		edge_iterator                           b = p.first;
-		edge_iterator                           e = p.second;
+		edge_iterator						   b = p.first;
+		edge_iterator						   e = p.second;
 		CPPUNIT_ASSERT(b != e);
 		if (b != e) {
 			edge_descriptor ed = *b;
@@ -183,8 +191,8 @@ struct TestGraph : CppUnit::TestFixture {
 	// test_vertices
 	void test_vertices () {
 		std::pair<vertex_iterator, vertex_iterator> p = vertices(g);
-		vertex_iterator                             b = p.first;
-		vertex_iterator                             e = p.second;
+		vertex_iterator								 b = p.first;
+		vertex_iterator								 e = p.second;
 		CPPUNIT_ASSERT(b != e);
 		if (b != e) {
 			vertex_descriptor vd = *b;
@@ -197,20 +205,21 @@ struct TestGraph : CppUnit::TestFixture {
 	// --------------
 	// test_has_cycle
 	void test_has_cycle () {
-	    CPPUNIT_ASSERT(has_cycle(g));}
+		CPPUNIT_ASSERT(has_cycle(g));}
 
 	// ---------------------
 	// test_topological_sort
 	void test_topological_sort () {
-	    std::ostringstream out;
-	    topological_sort(g, std::ostream_iterator<vertex_descriptor>(out, " "));
-	    CPPUNIT_ASSERT(out.str() == "2 0 1 ");}
+		std::ostringstream out;
+		topological_sort(g, std::ostream_iterator<vertex_descriptor>(out, " "));
+		CPPUNIT_ASSERT(out.str() == "2 0 1 ");}
 
 	// -----
 	// suite
 	CPPUNIT_TEST_SUITE(TestGraph);
-	CPPUNIT_TEST(test_add_edge);
-	CPPUNIT_TEST(test_adjacent_vertices);
+	CPPUNIT_TEST(test_add_edge0);
+	CPPUNIT_TEST(test_add_edge1);
+/*	CPPUNIT_TEST(test_adjacent_vertices);
 	CPPUNIT_TEST(test_edge);
 	CPPUNIT_TEST(test_edges);
 	CPPUNIT_TEST(test_num_edges);
@@ -219,22 +228,22 @@ struct TestGraph : CppUnit::TestFixture {
 	CPPUNIT_TEST(test_target);
 	CPPUNIT_TEST(test_vertex);
 	CPPUNIT_TEST(test_vertices);
-	CPPUNIT_TEST_SUITE_END();};
-
+*/	CPPUNIT_TEST_SUITE_END();};
 
 // ----
 // main
 int main () {
-    using namespace std;
-    using namespace boost;
+	using namespace std;
+	using namespace boost;
 
-    ios_base::sync_with_stdio(false); // turn off synchronization with C I/O
-    cout << "TestGraph.c++" << endl;
+	ios_base::sync_with_stdio(false); // turn off synchronization with C I/O
+	cout << "TestGraph.c++" << endl;
 
-    CppUnit::TextTestRunner tr;
-    tr.addTest(TestGraph< adjacency_list<setS, vecS, directedS> >::suite());
+	CppUnit::TextTestRunner tr;
+	tr.addTest(TestGraph< adjacency_list<setS, vecS, directedS> >::suite());
 //  tr.addTest(TestGraph<Graph>::suite());
-    tr.run();
+	tr.run();
 
-    cout << "Done." << endl;
-    return 0;}
+	cout << "Done." << endl;
+	return 0;
+}

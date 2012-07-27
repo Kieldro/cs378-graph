@@ -5,7 +5,8 @@ outFile="TestGraph.out"
 
 clear
 echo COMPILING $source and $unitFile...
-g++ -ansi -pedantic -I/public/linux/include/boost-1_44 -ldl -Wall $unitFile -lcppunit -o $unitFile.app
+g++ -O -ansi -pedantic -I/public/linux/include/boost-1_44 -ldl -Wall \
+	$unitFile -lcppunit -o $unitFile.app
 	if ([ $? == 0 ]); then
 echo RUNNING UNIT TESTS...
 valgrind ./$unitFile.app #>& $outFile

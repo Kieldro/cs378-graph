@@ -9,10 +9,10 @@
 
 // --------
 // includes
-#include <cassert> // assert
-#include <cstddef> // size_t
-#include <utility> // make_pair, pair
-#include <vector>  // vector
+#include <cassert>	// assert
+#include <cstddef>	// size_t
+#include <utility>	// make_pair, pair
+#include <vector>	// vector
 
 // -----
 // Graph
@@ -40,7 +40,8 @@ class Graph {
 			// <your code>
 			edge_descriptor ed;
 			bool			b;
-			return std::make_pair(ed, b);}
+			return std::make_pair(ed, b);
+		}
 
 		// ----------
 		// add_vertex
@@ -50,7 +51,8 @@ class Graph {
 		friend vertex_descriptor add_vertex (Graph&) {
 			// <your code>
 			vertex_descriptor v;
-			return v;}
+			return v;
+		}
 
 		// -----------------
 		// adjacent_vertices
@@ -61,7 +63,8 @@ class Graph {
 			// <your code>
 			adjacency_iterator b = adjacency_iterator();
 			adjacency_iterator e = adjacency_iterator();
-			return std::make_pair(b, e);}
+			return std::make_pair(b, e);
+		}
 
 		// ----
 		// edge
@@ -72,7 +75,8 @@ class Graph {
 			// <your code>
 			edge_descriptor ed;
 			bool			b;
-			return std::make_pair(ed, b);}
+			return std::make_pair(ed, b);
+		}
 
 		// -----
 		// edges
@@ -83,7 +87,8 @@ class Graph {
 			// <your code>
 			edge_iterator b;
 			edge_iterator e;
-			return std::make_pair(b, e);}
+			return std::make_pair(b, e);
+		}
 
 		// ---------
 		// num_edges
@@ -93,7 +98,8 @@ class Graph {
 		friend edges_size_type num_edges (const Graph&) {
 			// <your code>
 			edges_size_type s;
-			return s;}
+			return s;
+		}
 
 		// ------------
 		// num_vertices
@@ -103,7 +109,8 @@ class Graph {
 		friend vertices_size_type num_vertices (const Graph&) {
 			// <your code>
 			vertices_size_type s;
-			return s;}
+			return s;
+		}
 
 		// ------
 		// source
@@ -113,7 +120,8 @@ class Graph {
 		friend vertex_descriptor source (edge_descriptor, const Graph&) {
 			// <your code>
 			vertex_descriptor v;
-			return v;}
+			return v;
+		}
 
 		// ------
 		// target
@@ -123,7 +131,8 @@ class Graph {
 		friend vertex_descriptor target (edge_descriptor, const Graph&) {
 			// <your code>
 			vertex_descriptor v;
-			return v;}
+			return v;
+		}
 
 		// ------
 		// vertex
@@ -133,7 +142,8 @@ class Graph {
 		friend vertex_descriptor vertex (vertices_size_type, const Graph&) {
 			// <your code>
 			vertex_descriptor vd;
-			return vd;}
+			return vd;
+		}
 
 		// --------
 		// vertices
@@ -144,7 +154,8 @@ class Graph {
 			// <your code>
 			vertex_iterator b = vertex_iterator();
 			vertex_iterator e = vertex_iterator();
-			return std::make_pair(b, e);}
+			return std::make_pair(b, e);
+		}
 
 	private:
 		// ----
@@ -202,6 +213,6 @@ void topological_sort (const G& g, OI x) {
 	*x = 0;
 	++x;
 	*x = 1;
-	}
+}
 
 #endif // Graph_h
