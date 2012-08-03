@@ -12,6 +12,7 @@
 #include <cassert>	// assert
 #include <cstddef>	// size_t
 #include <utility>	// make_pair, pair
+#include <typeinfo>	// typeid
 #include <vector>	// vector
 
 #define DEBUG true
@@ -28,13 +29,11 @@ class Graph {
 	public:
 		// --------
 		// typedefs
-		typedef int vertex_descriptor;  // fix!
+		typedef unsigned long vertex_descriptor;
 		typedef pair<vertex_descriptor, vertex_descriptor> edge_descriptor;
-
 		typedef int* vertex_iterator;	// fix!
 		typedef int* edge_iterator;	  // fix!
 		typedef int* adjacency_iterator; // fix!
-
 		typedef std::size_t vertices_size_type;
 		typedef std::size_t edges_size_type;
 
