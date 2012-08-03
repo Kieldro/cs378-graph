@@ -134,18 +134,19 @@ struct TestGraph : CppUnit::TestFixture {
 	
 	void test_add_edge2 () {
 		pair<edge_descriptor, bool> p = add_edge(vdH, vdG, g);
+		CPPUNIT_ASSERT(num_edges(g) == 12);
 		p = add_edge(vdH, vdG, g);
-		if(DEBUG)cerr << "typeid(double): " << typeid(double).name() << endl;
+		/*if(DEBUG)cerr << "typeid(double): " << typeid(double).name() << endl;
 		if(DEBUG)cerr << "typeid(vdH): " << typeid(vdH).name() << endl;
 		if(DEBUG)cerr << "vdH: " << vdH << endl;
 		if(DEBUG)cerr << "num_vertices(g): " << num_vertices(g) << endl;
-		CPPUNIT_ASSERT(p.second == false);
+		*/CPPUNIT_ASSERT(p.second == false);
 		CPPUNIT_ASSERT(num_edges(g) == 12);
 	}
 
 	// ----------------------
 	// test_adjacent_vertices
-	void test_adjacent_vertices () {
+	void test_adjacent_vertices0 () {
 		std::pair<adjacency_iterator, adjacency_iterator> p
 			= adjacent_vertices(vdA, g);
 		adjacency_iterator b = p.first;
@@ -157,7 +158,42 @@ struct TestGraph : CppUnit::TestFixture {
 		++b;
 		if (b != e) {
 			vertex_descriptor vd = *b;
-			CPPUNIT_ASSERT(vd == vdC);}}
+			CPPUNIT_ASSERT(vd == vdC);}
+		++b;
+		if (b != e) {
+			vertex_descriptor vd = *b;
+			CPPUNIT_ASSERT(vd == vdE);}
+	}
+	
+	void test_adjacent_vertices1 () {
+		std::pair<adjacency_iterator, adjacency_iterator> p
+			= adjacent_vertices(vdH, g);
+		adjacency_iterator b = p.first;
+		adjacency_iterator e = p.second;
+		CPPUNIT_ASSERT(b == e);
+		
+		add_edge(vdH, vdG, g);
+		p = adjacent_vertices(vdH, g);
+		b = p.first;
+		e = p.second;
+		CPPUNIT_ASSERT(b != e);
+		CPPUNIT_ASSERT(*b == vdG);
+	}
+	
+	void test_adjacent_vertices2 () {
+		std::pair<adjacency_iterator, adjacency_iterator> p
+			= adjacent_vertices(vdH, g);
+		adjacency_iterator b = p.first;
+		adjacency_iterator e = p.second;
+		CPPUNIT_ASSERT(b == e);
+		
+		add_edge(vdH, vdG, g);
+		p = adjacent_vertices(vdH, g);
+		b = p.first;
+		e = p.second;
+		CPPUNIT_ASSERT(b != e);
+		CPPUNIT_ASSERT(*b == vdG);
+	}
 
 	// ---------
 	// test_edge
@@ -244,7 +280,9 @@ struct TestGraph : CppUnit::TestFixture {
 	CPPUNIT_TEST(test_add_edge0);
 	CPPUNIT_TEST(test_add_edge1);
 	CPPUNIT_TEST(test_add_edge2);
-//	CPPUNIT_TEST(test_adjacent_vertices);
+	CPPUNIT_TEST(test_adjacent_vertices0);
+	CPPUNIT_TEST(test_adjacent_vertices1);
+	CPPUNIT_TEST(test_adjacent_vertices2);
 /*	CPPUNIT_TEST(test_edge);
 	CPPUNIT_TEST(test_edges);
 	CPPUNIT_TEST(test_num_edges);
@@ -265,8 +303,8 @@ int main () {
 	cout << "TestGraph.c++" << endl;
 
 	CppUnit::TextTestRunner tr;
-//	tr.addTest(TestGraph< adjacency_list<setS, vecS, directedS> >::suite());
-	tr.addTest(TestGraph<Graph>::suite());
+	tr.addTest(TestGraph< adjacency_list<setS, vecS, directedS> >::suite());
+//	tr.addTest(TestGraph<Graph>::suite());
 	tr.run();
 
 	cout << "Done." << endl;

@@ -6,13 +6,14 @@ Last Name: Buitrago
 EID: ib
 E-mail: kieldro@gmail.com
 Estimated number of hours: 25
-Actual    number of hours: 1
+Actual    number of hours: 25 (8+17)
 
 Turnin CS Username: keo
 GitHub ID: Kieldro
 GitHub Repository Name: cs378-graph
 
 Comments:
+partially complete
 
 ----------------
 Pair Programming

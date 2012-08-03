@@ -33,7 +33,7 @@ class Graph {
 		typedef pair<vertex_descriptor, vertex_descriptor> edge_descriptor;
 		typedef int* vertex_iterator;	// fix!
 		typedef int* edge_iterator;	  // fix!
-		typedef int* adjacency_iterator; // fix!
+		typedef vector<vertex_descriptor>::const_iterator adjacency_iterator;
 		typedef std::size_t vertices_size_type;
 		typedef std::size_t edges_size_type;
 
@@ -48,7 +48,7 @@ class Graph {
 		friend vertex_descriptor add_vertex (Graph& graph) {	
 			vertex_descriptor vertex = graph.v.size();
 			graph.v.push_back(vertex);
-			graph.g.push_back(vector<edge_descriptor>());
+			graph.g.push_back(vector<vertex_descriptor>());
 			
 			assert(graph.g.size() == graph.v.size());
 			return vertex;
@@ -74,7 +74,7 @@ class Graph {
 				// add edge to e and g
 				//if(DEBUG)cerr << "BOOYAKASHA!" << endl;
 				graph.e.push_back(ed);
-				graph.g[ed.first].push_back(ed);
+				graph.g[ed.first].push_back(ed.second);
 			}else{
 				;/*if(DEBUG)cerr << "ed found ifn e" << endl;
 				if(DEBUG)cerr << "*it.first: " << it->first << endl;
@@ -90,10 +90,15 @@ class Graph {
 		/**
 		 * <your documentation>
 		 */
-		friend pair<adjacency_iterator, adjacency_iterator> adjacent_vertices (vertex_descriptor, const Graph&) {
-			// <your code>
-			adjacency_iterator b = adjacency_iterator();
-			adjacency_iterator e = adjacency_iterator();
+		friend pair<adjacency_iterator, adjacency_iterator> adjacent_vertices(
+				vertex_descriptor vertex, const Graph& graph) {
+			
+			if(DEBUG)cerr << "typeid(graph.g[vertex].begin()): "
+				<< typeid(graph.g[vertex].begin()).name() << endl;
+			
+			adjacency_iterator b = graph.g[vertex].begin();
+			adjacency_iterator e = graph.g[vertex].end();
+			
 			return make_pair(b, e);
 		}
 
@@ -102,7 +107,8 @@ class Graph {
 		/**
 		 * <your documentation>
 		 */
-		friend pair<edge_descriptor, bool> edge (vertex_descriptor, vertex_descriptor, const Graph&) {
+		friend pair<edge_descriptor, bool> edge (vertex_descriptor
+				, vertex_descriptor, const Graph&) {
 			// <your code>
 			edge_descriptor ed;
 			bool			b;
@@ -191,7 +197,7 @@ class Graph {
 	private:
 		// ----
 		// data
-		vector< vector<edge_descriptor> > g; // something like this
+		vector< vector<vertex_descriptor> > g; // something like this
 		vector< vertex_descriptor > v;
 		vector< edge_descriptor > e;
 		
@@ -213,7 +219,7 @@ class Graph {
 		 * <your documentation>
 		 */
 		Graph () {
-			g = vector< vector<edge_descriptor> >();
+			g = vector< vector<vertex_descriptor> >();
 			v = vector< vertex_descriptor >();
 			e = vector< edge_descriptor >();
 			
