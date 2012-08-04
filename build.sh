@@ -9,10 +9,9 @@ g++ -O -ansi -pedantic -I/public/linux/include/boost-1_44 -ldl -Wall \
 	$unitFile -lcppunit -o $unitFile.app
 	if ([ $? == 0 ]); then
 echo RUNNING UNIT TESTS...
-valgrind ./$unitFile.app #>& $outFile
+valgrind ./$unitFile.app >& $outFile
 	fi
 
-<<MULTICOMMENT
 echo GENERATING COMMIT LOG...
 git log > Graph.log
 
@@ -28,5 +27,6 @@ zip Graph README.txt html/* Graph.h Graph.log TestGraph.c++ TestGraph.out
 
 turnin --submit reza cs378pj5 Graph.zip
 turnin --list   reza cs378pj5
+<<MULTICOMMENT
 turnin --verify reza cs378pj5
 MULTICOMMENT

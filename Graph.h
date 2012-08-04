@@ -15,7 +15,7 @@
 #include <typeinfo>	// typeid
 #include <vector>	// vector
 
-#define DEBUG true
+#define DEBUG !true
 
 using std::cerr;
 using std::endl;
@@ -31,8 +31,8 @@ class Graph {
 		// typedefs
 		typedef unsigned long vertex_descriptor;
 		typedef pair<vertex_descriptor, vertex_descriptor> edge_descriptor;
-		typedef int* vertex_iterator;	// fix!
-		typedef int* edge_iterator;	  // fix!
+		typedef vector<vertex_descriptor>::const_iterator vertex_iterator;
+		typedef vector<edge_descriptor>::const_iterator edge_iterator;
 		typedef vector<vertex_descriptor>::const_iterator adjacency_iterator;
 		typedef std::size_t vertices_size_type;
 		typedef std::size_t edges_size_type;
@@ -88,7 +88,7 @@ class Graph {
 		// -----------------
 		// adjacent_vertices
 		/**
-		 * <your documentation>
+		 * Return a pair of iterators
 		 */
 		friend pair<adjacency_iterator, adjacency_iterator> adjacent_vertices(
 				vertex_descriptor vertex, const Graph& graph) {
@@ -105,25 +105,28 @@ class Graph {
 		// ----
 		// edge
 		/**
-		 * <your documentation>
+		 * Return a pair with true if the edge exists
 		 */
-		friend pair<edge_descriptor, bool> edge (vertex_descriptor
-				, vertex_descriptor, const Graph&) {
-			// <your code>
-			edge_descriptor ed;
-			bool			b;
+		friend pair<edge_descriptor, bool> edge (vertex_descriptor v0
+				, vertex_descriptor v1, const Graph& G) {
+			edge_descriptor ed = make_pair(v0, v1);
+			bool			b = false;
+			
+			// true is edge exists
+			b = std::find(G.e.begin(), G.e.end(), ed) != G.e.end();
+			
 			return make_pair(ed, b);
 		}
 
 		// -----
 		// edges
 		/**
-		 * <your documentation>
+		 * Return a pair of iterators to see all edges.
 		 */
-		friend pair<edge_iterator, edge_iterator> edges (const Graph&) {
-			// <your code>
-			edge_iterator b;
-			edge_iterator e;
+		friend pair<edge_iterator, edge_iterator> edges (const Graph& G) {
+			edge_iterator b = G.e.begin();
+			edge_iterator e = G.e.end();
+			
 			return make_pair(b, e);
 		}
 
@@ -141,7 +144,7 @@ class Graph {
 		// ------------
 		// num_vertices
 		/**
-		 * <your documentation>
+		 * Return number of vertices in the graph.
 		 */
 		friend vertices_size_type num_vertices (const Graph& graph) {
 			vertices_size_type s = graph.v.size();
@@ -152,45 +155,45 @@ class Graph {
 		// ------
 		// source
 		/**
-		 * <your documentation>
+		 * Return the source vertex of an edge.
 		 */
-		friend vertex_descriptor source (edge_descriptor, const Graph&) {
-			// <your code>
-			vertex_descriptor v;
+		friend vertex_descriptor source (edge_descriptor E, const Graph&) {
+			vertex_descriptor v = E.first;
+			
 			return v;
 		}
 
 		// ------
 		// target
 		/**
-		 * <your documentation>
+		 * Return the target vertex of an edge.
 		 */
-		friend vertex_descriptor target (edge_descriptor, const Graph&) {
-			// <your code>
-			vertex_descriptor v;
+		friend vertex_descriptor target (edge_descriptor E, const Graph&) {
+			vertex_descriptor v = E.second;
+			
 			return v;
 		}
 
 		// ------
 		// vertex
 		/**
-		 * <your documentation>
+		 * Return a vertex 
 		 */
-		friend vertex_descriptor vertex (vertices_size_type, const Graph&) {
-			// <your code>
-			vertex_descriptor vd;
+		friend vertex_descriptor vertex (vertices_size_type s, const Graph& G) {
+			vertex_descriptor vd = G.v[s];
+			
 			return vd;
 		}
 
 		// --------
 		// vertices
 		/**
-		 * <your documentation>
+		 * Return a pair of iterators to see all vertices.
 		 */
-		friend pair<vertex_iterator, vertex_iterator> vertices (const Graph&) {
-			// <your code>
-			vertex_iterator b = vertex_iterator();
-			vertex_iterator e = vertex_iterator();
+		friend pair<vertex_iterator, vertex_iterator> vertices (const Graph& G) {
+			vertex_iterator b = G.v.begin();
+			vertex_iterator e = G.v.end();
+			
 			return make_pair(b, e);
 		}
 
@@ -204,7 +207,7 @@ class Graph {
 		// -----
 		// valid
 		/**
-		 * <your documentation>
+		 * Check if structures are valid.
 		 */
 		bool valid () const {
 			if(g.size() != v.size())
@@ -216,7 +219,7 @@ class Graph {
 		// ------------
 		// constructors
 		/**
-		 * <your documentation>
+		 * Initialize all data members.
 		 */
 		Graph () {
 			g = vector< vector<vertex_descriptor> >();
@@ -237,18 +240,21 @@ class Graph {
 /**
  * depth-first traversal
  * three colors
- * <your documentation>
+ * Return true if a cycle exists.
  */
 template <typename G>
 bool has_cycle (const G& g) {
-	return true;}
+	
+	
+	return true;
+}
 
 // ----------------
 // topological_sort
 /**
  * depth-first traversal
  * two colors
- * <your documentation>
+ * Sort the graph.
  * @throws Boost's not_a_dag exception if !has_cycle()
  */
 template <typename G, typename OI>

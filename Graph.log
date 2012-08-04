@@ -1,0 +1,41 @@
+commit a66a1ed9d48bd11bc7322f789a86b8522bb1794c
+Author: Ian Buitrago <kieldro@gmail.com>
+Date:   Fri Aug 3 18:43:32 2012 -0500
+
+    Implements adjacent_vertices().
+
+commit 53effe61ae0458a5d509056e4b06f720c5b70b74
+Author: Ian Buitrago <kieldro@gmail.com>
+Date:   Fri Aug 3 17:42:58 2012 -0500
+
+    Adds new add_edge() unit test.
+
+commit 65f53f22ca2398f7ccb19c38a333b3da926b004b
+Author: Ian Buitrago <kieldro@gmail.com>
+Date:   Fri Aug 3 17:08:22 2012 -0500
+
+    Implements add_edge and add_vertex().
+
+commit 0844992450b1739695e064e288c24744f7c3a50f
+Author: Ian Buitrago <kieldro@gmail.com>
+Date:   Fri Jul 27 18:30:16 2012 -0500
+
+    Running 2 tests.
+
+commit 52b6ad67970f6f3867b8eaa4544a1679592ae718
+Author: Ian Buitrago <kieldro@gmail.com>
+Date:   Fri Jul 27 16:39:43 2012 -0500
+
+    Removed extra whitespace.
+
+commit 1339e80a98c3d650263a31567eac7e0c0fa00b39
+Author: Ian Buitrago <kieldro@gmail.com>
+Date:   Wed Jul 25 12:52:04 2012 -0500
+
+    Adds Doxygen.
+
+commit e51b156563ffe0daa0140ffe36725a15d5d75839
+Author: Ian Buitrago <kieldro@gmail.com>
+Date:   Wed Jul 25 12:35:57 2012 -0500
+
+    Adds skeleton files.
